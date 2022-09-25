@@ -33,7 +33,7 @@ services:
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db
-      - PMA_USER=${ROOT_ID}
+      - PMA_USER=root
       - PMA_PASSWORD=${ROOT_PASS}
     ports:
       - 127.0.0.1:4040:80

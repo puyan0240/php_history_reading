@@ -10,6 +10,8 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <form action="branch.php" method="post">
+        <input type="submit" name="bt_data" value="データ">
+    </form>
 </body>
 </html>

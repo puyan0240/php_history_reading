@@ -27,6 +27,8 @@
 
         for ($i =0; $i < $sheetCount; $i ++) {
             $sheet = $spreadsheet->getSheet($i);
+            $title = $sheet->getTitle();    #Sheet名取得
+            echo "title:".$title."<br>";
             echo "------".$i."<br>";
             foreach ($sheet->getRowIterator() as $row) {
                 foreach($sheet->getColumnIterator() as $column) {

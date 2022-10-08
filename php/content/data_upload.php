@@ -24,22 +24,31 @@
     
             $sheetCount = $spreadsheet->getSheetCount();    //シート数取得
             echo "シート数".$sheetCount."<br>";
-    
+
             for ($i =0; $i < $sheetCount; $i ++) {
                 $sheet = $spreadsheet->getSheet($i);
                 $title = $sheet->getTitle();    #Sheet名取得
                 echo "title:".$title."<br>";
                 echo "------".$i."<br>";
     
+                $dataName = ['idx','date','title','author','publisher','recommend','comment'];
                 $sheetData = [];
-                foreach ($sheet->getRowIterator() as $row) {
+
+                foreach ($sheet->getRowIterator() as $row_num => $row) {
                     foreach($sheet->getColumnIterator() as $column) {
-                        $sheetData[] = $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
+                        $cellData = $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue();
+                        if (!empty($cellData))
+                            $sheetData[] = $cellData;
                         #echo $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
                     }
-                    foreach ($sheetData as $j => $data) {
-                        if ($data != "")
-                            echo $j.":".$data;
+                    foreach ($sheetData as $j => $cellData) {
+                        if (($j == 0) && ($cellData == "No.")) {
+                            break;  //1行目タイトルはスキップ
+                        }
+                        #echo $j.":".$data.",";
+                        if ($j > 0) {
+                            echo $dataName[$j].":".$cellData.",";
+                        }
                     }
                     #var_dump($sheetData);
                     $sheetData = [];

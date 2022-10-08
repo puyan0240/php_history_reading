@@ -6,7 +6,9 @@
 
     $file = $_FILES['upload_file'];
 
-    var_dump($file);
+    #var_dump($file);
+
+    $result = 'アップロードが失敗しました';
 
     if (!empty($file['tmp_name'])) { //アップロードファイルあり
         $filepath = $file["tmp_name"];
@@ -49,6 +51,7 @@
                         if ($j > 0) {
                             echo $dataName[$j].":".$cellData.",";
                         }
+                        $result = 'アップロードが成功しました';
                     }
                     #var_dump($sheetData);
                     $sheetData = [];
@@ -75,6 +78,7 @@
     <title>保存データのアップロード</title>
 </head>
 <body>
+    <p><?php echo $result; ?></p>
     <a href="index.php">戻る</a>
 </body>
 </html>

@@ -8,41 +8,53 @@
 
     var_dump($file);
 
+    if (!empty($file['tmp_name'])) { //アップロードファイルあり
+        $filepath = $file["tmp_name"];
+        echo $filepath;
+    
+        $storeDir = '/tmp/'; #apache上です
+        $filepath = $storeDir.$file['name'];
+        echo $filepath;
+        move_uploaded_file($file['tmp_name'], $filepath);
 
-    $filepath = $file["tmp_name"];
-    echo $filepath;
-
-    $storeDir = '/tmp/'; #apache上です
-    $filepath = $storeDir.$file['name'];
-    echo $filepath;
-    move_uploaded_file($file['tmp_name'], $filepath);
-
-    try {
-        $reader = new XlsxReader();
-        $spreadsheet = $reader->load($filepath); // ファイル名を指定
-        #$sheet = $spreadsheet->getSheetByName('test1'); // 読み込むシートを指定
-
-        $sheetCount = $spreadsheet->getSheetCount();    //シート数取得
-        echo "シート数".$sheetCount."<br>";
-
-        for ($i =0; $i < $sheetCount; $i ++) {
-            $sheet = $spreadsheet->getSheet($i);
-            $title = $sheet->getTitle();    #Sheet名取得
-            echo "title:".$title."<br>";
-            echo "------".$i."<br>";
-            foreach ($sheet->getRowIterator() as $row) {
-                foreach($sheet->getColumnIterator() as $column) {
-                    echo $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
-                }
-                echo "<br>";
-            }   
+        try {
+            $reader = new XlsxReader();
+            $spreadsheet = $reader->load($filepath); // ファイル名を指定
+            #$sheet = $spreadsheet->getSheetByName('test1'); // 読み込むシートを指定
+    
+            $sheetCount = $spreadsheet->getSheetCount();    //シート数取得
+            echo "シート数".$sheetCount."<br>";
+    
+            for ($i =0; $i < $sheetCount; $i ++) {
+                $sheet = $spreadsheet->getSheet($i);
+                $title = $sheet->getTitle();    #Sheet名取得
+                echo "title:".$title."<br>";
+                echo "------".$i."<br>";
+    
+                $sheetData = [];
+                foreach ($sheet->getRowIterator() as $row) {
+                    foreach($sheet->getColumnIterator() as $column) {
+                        $sheetData[] = $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
+                        #echo $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
+                    }
+                    foreach ($sheetData as $j => $data) {
+                        if ($data != "")
+                            echo $j.":".$data;
+                    }
+                    #var_dump($sheetData);
+                    $sheetData = [];
+                    echo "<br>";
+                }   
+            }
         }
+        catch (Exception $e) {
+            die("ロードエラー : {$e->getMessage()}");
+        }
+    
+        unlink($filepath);  #ファイルを削除  
+    } else { //アップロードファイルなし
+        //exit();
     }
-    catch (Exception $e) {
-        die("ロードエラー : {$e->getMessage()}");
-    }
-
-    unlink($filepath);  #ファイルを削除
 ?>
 
 <!DOCTYPE html>

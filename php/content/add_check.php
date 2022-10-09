@@ -1,4 +1,18 @@
 <?php
+    require_once './common/Encode.php';
+
+    $title     = e($_POST['title']);
+    $author    = e($_POST['author']);
+    $publisher = e($_POST['publisher']);
+    $recommend = e($_POST['recommend']);
+    $comment   = e($_POST['comment']);
+
+    if ((mb_strlen($title) == 0)  ||
+        (mb_strlen($author) == 0) ||
+        (mb_strlen($publisher) == 0)) {
+        exit();
+    }
+
 ?>
 
 <!DOCTYPE html>

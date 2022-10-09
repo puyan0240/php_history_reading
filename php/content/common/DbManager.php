@@ -35,28 +35,21 @@ function insertDb($dbName, $host, $tblName, $keyValue) {
         $str_bindName = "";
 
         foreach ($keyValue as $key => $value) {
-            $str_tblElement .= ($key.",");
-            $str_bindName .= (":".$key.",");
+            $str_tblElement .= ($key.", ");
+            $str_bindName .= (":".$key.", ");
         }
-        $str_tblElement = rtrim($str_tblElement, ",");
-        $str_bindName = rtrim($str_bindName, ",");
-
-        //echo $str_tblElement."<br>";
-        //echo $str_bindName."<br>";
-
+        $str_tblElement = rtrim($str_tblElement, ", ");
+        $str_bindName = rtrim($str_bindName, ", ");
+ 
         try {
-            $format = "'INSERT INTO %s (%s) VALUES(%s)'";
+            $format = 'INSERT INTO %s(%s) VALUES(%s)';
             $str_sql = sprintf($format, $tblName, $str_tblElement, $str_bindName);
-            echo $str_sql."<br>";
-
             $stt = $db->prepare($str_sql);
-
-            $format = "':%s'";
+ 
+            $format = ':%s';
             foreach ($keyValue as $key => $value) {
                 $str_bindName = sprintf($format, $key);
                 $stt->bindValue($str_bindName, $value);
-
-                echo $str_bindName.",".$value."<br>";               
             }
             $stt->execute();
         }

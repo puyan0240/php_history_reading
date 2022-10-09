@@ -1,6 +1,5 @@
 <?php
-function getDb($dbname, $host) : PDO
-{
+function getDb($dbName, $host) : PDO {
     //環境変数(.env)からユーザーIDとパスワード取得
     {
         require dirname(__FILE__).'/../vendor/autoload.php'; //vendorディレクトリの階層を指定する
@@ -15,14 +14,61 @@ function getDb($dbname, $host) : PDO
     try
     {
         $format = 'mysql:dbname=%s; host=%s; charset=utf8';
-        $dsn = sprintf($format, $dbname, $host);
+        $dsn = sprintf($format, $dbName, $host);
 
         $db = new PDO($dsn, $user, $passwd);
         return $db;
     }
     catch (PDOException $e)
     {
-        die("接続エラー : {$e->getMessage()}");
+        echo "接続エラー:".$e->getMessage();
+        //die("接続エラー : {$e->getMessage()}");
+        return null;
+    }
+}
+
+function insertDb($dbName, $host, $tblName, $keyValue) {
+
+    $db = getDb($dbName, $host);
+    if ($db != null) {
+        $str_tblElement = "";
+        $str_bindName = "";
+
+        foreach ($keyValue as $key => $value) {
+            $str_tblElement .= ($key.",");
+            $str_bindName .= (":".$key.",");
+        }
+        $str_tblElement = rtrim($str_tblElement, ",");
+        $str_bindName = rtrim($str_bindName, ",");
+
+        //echo $str_tblElement."<br>";
+        //echo $str_bindName."<br>";
+
+        try {
+            $format = "'INSERT INTO %s (%s) VALUES(%s)'";
+            $str_sql = sprintf($format, $tblName, $str_tblElement, $str_bindName);
+            echo $str_sql."<br>";
+
+            $stt = $db->prepare($str_sql);
+
+            $format = "':%s'";
+            foreach ($keyValue as $key => $value) {
+                $str_bindName = sprintf($format, $key);
+                $stt->bindValue($str_bindName, $value);
+
+                echo $str_bindName.",".$value."<br>";               
+            }
+            $stt->execute();
+        }
+        catch (PDOException $e) {
+            echo "err:".$e->getMessage()."<br>";
+            var_dump($db->errorInfo());
+        }
+
+        $db = null;
+        return TRUE;
+    } else {
+        return FALSE;
     }
 }
 ?>

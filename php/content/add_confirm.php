@@ -30,15 +30,15 @@
             <table>
                 <tr>
                     <td>タイトル:</td>
-                    <td><input type="text" name="title" value="<?php echo $title; ?>" readonly></td>
+                    <td><?php echo $title; ?></td>
                 </tr>
                 <tr>
                     <td>著者:</td>
-                    <td><input type="text" name="author" value="<?php echo $author;?>" readonly></td>
+                    <td><?php echo $author;?></td>
                 </tr>
                 <tr>
                     <td>出版社:</td>
-                    <td><input type="text" name="publisher" value="<?php echo $publisher;?>" readonly></td>
+                    <td><?php echo $publisher;?></td>
                 </tr>
                 <tr>
                     <td>評価:</td>
@@ -46,9 +46,15 @@
                 </tr>
                 <tr>
                     <td>コメント:</td>
-                    <td><input type="text" name="comment" value="<?php echo $comment; ?>" readonly></td>
+                    <td><?php echo $comment; ?></td>
                 </tr>
             </table>
+
+            <input type="hidden" name="title" value="<?php echo $title; ?>">
+            <input type="hidden" name="author" value="<?php echo $author;?>">
+            <input type="hidden" name="publisher" value="<?php echo $publisher;?>">
+            <input type="hidden" name="recommend" value="<?php echo $recommend;?>">
+            <input type="hidden" name="comment" value="<?php echo $comment; ?>">
 
             <input type="button" onclick="history.back()" value="戻る">
             <input type="submit" value="登録">

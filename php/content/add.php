@@ -45,7 +45,7 @@
             </table>
 
             <input type="reset" value="取消">
-            <input type="submit" value="登録">
+            <input type="submit" value="登録確認">
         </div>
     </form>
     <div>

@@ -10,7 +10,7 @@
     <title>新規登録</title>
 </head>
 <body>
-    <form action="add_check.php" method="POST">
+    <form action="add_confirm.php" method="POST">
         <div>
             <p>新規登録</p>
             <table>

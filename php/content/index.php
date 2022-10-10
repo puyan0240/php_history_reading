@@ -5,10 +5,28 @@
 
     $outKeyValue = [];
 
-    //DB TABLEから読み出し
-    $result = getFromTbl($tblName, $outKeyValue);
+    $format = "
+        <tr>
+            <td>%d</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%d</td>
+        </tr>";
+    $strTbl = "";
 
-    echo $result;
+    //DB TABLEから読み出し
+    $ret = getFromTbl($tblName, $outKeyValue);
+    if ($ret != FALSE) {
+
+        //HTML作成
+        $count = 1;
+        foreach ($ret as $value) {
+            $strTbl .= sprintf($format, $count, $value['date'], $value['title'], $value['author'], $value['publisher'], $value['recommend'], $value['comment']);
+            $count += 1;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +52,8 @@
             <th>出版社</th>
             <th>評価</th>
         </tr>
+        <?php echo $strTbl; ?>
+
     </table>
 </body>
 </html>

@@ -1,4 +1,14 @@
 <?php
+    require_once './common/DbManager.php';
+
+    $tblName = "history_book_tbl";
+
+    $outKeyValue = [];
+
+    //DB TABLEから読み出し
+    $result = getFromTbl($tblName, $outKeyValue);
+
+    echo $result;
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +24,16 @@
         <input type="submit" name="bt_add" value="新規登録">
         <input type="submit" name="bt_data" value="データ">
     </form>
+
+    <table>
+        <tr>
+            <th>No.</th>
+            <th>日付</th>
+            <th>タイトル</th>
+            <th>著者</th>
+            <th>出版社</th>
+            <th>評価</th>
+        </tr>
+    </table>
 </body>
 </html>

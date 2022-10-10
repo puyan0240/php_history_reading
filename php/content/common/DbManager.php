@@ -34,6 +34,51 @@ function getDb() : PDO {
 
 
 #-----------------------------------------------------------
+# テーブルに検索 (SELECT)
+#-----------------------------------------------------------
+function getFromTbl($tblName, $out) {
+
+    $result = FALSE;
+
+    //DB接続
+    $db = getDb();
+    if ($db != null) {
+
+        //
+        try {
+            $format = 'SELECT * FROM %s WHERE 1';
+            $strSql = sprintf($format, $tblName);
+            $stmt = $db->prepare($strSql);
+            $stmt->execute();
+
+            $result = TRUE;
+        }
+        catch (PDOException $e) {
+
+            $result = FALSE;
+        }
+
+        //DB切断
+        $db = null;
+
+        if ($result == TRUE) {
+            while (TRUE) {
+                $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($rec == FALSE)
+                    break;
+
+                var_dump($rec);
+            }
+        }
+
+    }
+
+    return $result;
+}
+
+
+
+#-----------------------------------------------------------
 # テーブルに新規追加 (INSERT INTO)
 #-----------------------------------------------------------
 function insertDb($tblName, $keyValue) {

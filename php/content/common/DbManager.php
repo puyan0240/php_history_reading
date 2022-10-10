@@ -34,17 +34,18 @@ function getDb() : PDO {
 
 
 #-----------------------------------------------------------
-# テーブルに検索 (SELECT)
+# TBLから取得 (SELECT)
 #-----------------------------------------------------------
-function getFromTbl($tblName, $out) {
+function getFromTbl($tblName) {
 
     $result = FALSE;
+    $outValue = [];
 
     //DB接続
     $db = getDb();
     if ($db != null) {
 
-        //
+        //TBLから取得
         try {
             $format = 'SELECT * FROM %s WHERE 1';
             $strSql = sprintf($format, $tblName);
@@ -61,19 +62,22 @@ function getFromTbl($tblName, $out) {
         //DB切断
         $db = null;
 
+        //取得結果を順番に取り出す
         if ($result == TRUE) {
             while (TRUE) {
-                $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+                $rec = $stmt->fetch(PDO::FETCH_ASSOC); //連想配列で
                 if ($rec == FALSE)
-                    break;
+                    break; //終了
 
-                var_dump($rec);
+                $outValue[] = $rec; //連想配列型の2次元配列で結果を格納
             }
         }
-
     }
 
-    return $result;
+    if ($result == TRUE)
+        return $outValue;
+    else
+        return FALSE;
 }
 
 

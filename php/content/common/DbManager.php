@@ -67,13 +67,17 @@ function insertDb($tblName, $keyValue) {
                 $stt->bindValue($str_bindName, $value);
             }
             $stt->execute();
+
+            $result = TRUE;
         }
         catch (PDOException $e) {
             echo "err:".$e->getMessage()."<br>";
+
+            $result = FALSE;
         }
 
+        //DB解放
         $db = null;
-        $result = TRUE;
     }
 
     return $result;

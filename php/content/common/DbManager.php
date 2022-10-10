@@ -98,11 +98,11 @@ function insertDb($tblName, $keyValue) {
 
         //引数の連想配列は、テーブルの 要素名:値 になっている
         foreach ($keyValue as $key => $value) {
-            $str_tblElement .= ($key.", ");
-            $str_bindName .= (":".$key.", ");
+            $str_tblElement .= ($key.",");
+            $str_bindName .= (":".$key.",");
         }
-        $str_tblElement = rtrim($str_tblElement, ", ");
-        $str_bindName = rtrim($str_bindName, ", ");
+        $str_tblElement = rtrim($str_tblElement, ",");
+        $str_bindName = rtrim($str_bindName, ",");
  
         //SQLのINSERT INTOを行う
         try {

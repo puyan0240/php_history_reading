@@ -2,12 +2,12 @@
     require_once './common/Encode.php';
     require_once './common/DbManager.php';
 
-    $dbName ="history_book_db";
-    $host = "db";
     $tblName = "history_book_tbl";
     $keyValue = [];
+    //DB TABLEの要素名リスト
     $keyName = ['date','title','author','publisher','recommend','comment'];
 
+    //DB TABLEの 要素名:値 になるよう連想配列を作成
     foreach ($keyName as $key) {
         if ($key == 'date') {
             $keyValue[$key] = date('Y-m-d');
@@ -17,10 +17,9 @@
             $keyValue[$key] = e($_POST[$key]);
         }
     }
-    //var_dump($keyValue);
     
-    //
-    if (insertDb($dbName, $host, $tblName, $keyValue) == TRUE) {
+    //DB TABLEへ書き込み
+    if (insertDb($tblName, $keyValue) == TRUE) {
         $result = "登録成功しました。";
     } else {
         $result = "登録失敗しました。";

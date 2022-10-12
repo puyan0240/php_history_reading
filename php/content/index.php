@@ -13,6 +13,9 @@
             <td>%s</td>
             <td>%s</td>
             <td>%d</td>
+            <td><button onclick=\"location.href='branch.php?edit_type=disp&idx=%d'\">閲覧</button></td>
+            <td><button onclick=\"location.href='branch.php?edit_type=edit&idx=%d'\">編集</button></td>
+            <td><button onclick=\"location.href='branch.php?edit_type=clr&idx=%d'\">削除</button></td>
         </tr>";
     $strTbl = "";
 
@@ -23,7 +26,9 @@
         //HTML作成
         $count = 1;
         foreach ($ret as $value) {
-            $strTbl .= sprintf($format, $count, $value['date'], $value['title'], $value['author'], $value['publisher'], $value['recommend'], $value['comment']);
+            $strTbl .= sprintf($format, $count, $value['date'], $value['title'], $value['author'], 
+                                         $value['publisher'], $value['recommend'],
+                                         (int)$value['idx'], (int)$value['idx'], (int)$value['idx']);
             $count += 1;
         }
     }

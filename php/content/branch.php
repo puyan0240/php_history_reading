@@ -9,14 +9,13 @@ elseif (isset($_POST['bt_data'])) {
 }
 elseif (isset($_GET['edit_type'])) {
     $edit_type = $_GET['edit_type'];
-    $idx       = $_GET['idx'];
 
     if ($edit_type == "disp")
-        header('Location:disp.php?idx='.$idx);
+        header('Location:disp.php?idx='.$_GET['idx']);
     else if ($edit_type == "edit")
-        header('Location:edit.php?idx='.$idx);
+        header('Location:edit.php?idx='.$_GET['idx']);
     else if ($edit_type == "clr")
-        header('Location:clr.php?idx='.$idx);
+        header('Location:clr.php?idx='.$_GET['idx']);
     exit();
 }
 

@@ -36,7 +36,7 @@ function getDb() : PDO {
 #-----------------------------------------------------------
 # TBLから取得 (SELECT)
 #-----------------------------------------------------------
-function getFromTbl($tblName) {
+function getFromTbl($tblName, $param) {
 
     $result = FALSE;
     $outValue = [];
@@ -47,8 +47,17 @@ function getFromTbl($tblName) {
 
         //TBLから取得
         try {
-            $format = 'SELECT * FROM %s WHERE 1';
-            $strSql = sprintf($format, $tblName);
+            $format = 'SELECT * FROM %s WHERE %s';
+
+            if ($param == NULL) {
+                $strSql = sprintf($format, $tblName, "1");
+            }
+            else {
+                $strSql = sprintf($format, $tblName, $param);
+            }
+            
+            //echo $strSql;
+            
             $stmt = $db->prepare($strSql);
             $stmt->execute();
 
@@ -71,6 +80,7 @@ function getFromTbl($tblName) {
 
                 $outValue[] = $rec; //連想配列型の2次元配列で結果を格納
             }
+            //var_dump($outValue);
         }
     }
 

@@ -3,8 +3,6 @@
 
     $tblName = "history_book_tbl";
 
-    $outKeyValue = [];
-
     $format = "
         <tr>
             <td>%d</td>
@@ -20,7 +18,7 @@
     $strTbl = "";
 
     //DB TABLEから読み出し
-    $ret = getFromTbl($tblName, $outKeyValue);
+    $ret = getFromTbl($tblName, NULL);
     if ($ret != FALSE) {
 
         //HTML作成

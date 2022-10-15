@@ -12,6 +12,7 @@
     $ret = getFromTbl($tblName, $param);
     if ($ret != FALSE) {
         foreach ($ret as $value) {
+            $idx       = $value['idx'];
             $date      = $value['date'];
             $title     = $value['title'];
             $author    = $value['author'];
@@ -35,10 +36,15 @@
     <title>編集</title>
 </head>
 <body>
-    <form action="add_confirm.php" method="POST">
+    <form action="edit_confirm.php" method="POST">
         <div>
             <p>編集</p>
+            <input type="hidden" name="idx" value="<?php echo $idx; ?>">
             <table>
+                <tr>
+                    <td>日付</td>
+                    <td><input type="text" name="date" value="<?php echo $date;?>"></td>
+                </tr>
                 <tr>
                     <td>タイトル:</td>
                     <td><input type="text" name="title" value="<?php echo $title;?>"></td>
@@ -70,7 +76,7 @@
             </table>
 
             <input type="reset" value="取消">
-            <input type="submit" value="登録確認">
+            <input type="submit" value="更新確認へ">
         </div>
     </form>
     <div>

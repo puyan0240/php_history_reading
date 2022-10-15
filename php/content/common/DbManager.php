@@ -141,4 +141,67 @@ function insertDb($tblName, $keyValue) {
 
     return $result;
 }
+
+
+#-----------------------------------------------------------
+# TBLを更新 (UPDATE)
+#-----------------------------------------------------------
+function updateTbl($tblName, $elementkeyValue, $paramKeyValue) {
+
+    $result = FALSE;
+
+    $strElement = "";
+    $strParam = "";
+
+    //DBアクセス
+    $db = getDb();
+    if ($db != null) {
+
+        $strElement = "";
+
+        //引数の連想配列は、テーブルの 要素名:値 になっている
+        foreach ($elementkeyValue as $key => $value) {
+            $strElement .= ($key."=:".$key.",");
+        }
+        $strElement = rtrim($strElement, ",");
+        foreach ($paramKeyValue as $key => $value) {
+            $strParam .= ($key."=:".$key.",");
+        }
+        $strParam = rtrim($strParam, ",");
+    
+        //SQLのUPDATEを行う
+        try {
+            $format = 'UPDATE %s SET %s WHERE %s';
+            $strSql = sprintf($format, $tblName, $strElement, $strParam);
+            //echo $strSql;
+
+            $stt = $db->prepare($strSql);
+ 
+            $format = ':%s';
+            //SETのバインド設定
+            foreach ($elementkeyValue as $key => $value) {
+                $strBindName = sprintf($format, $key);
+                $stt->bindValue($strBindName, $value);
+            }
+            //WHEREのバインド設定
+            foreach ($paramKeyValue as $key => $value) {
+                $strBindName = sprintf($format, $key);
+                $stt->bindValue($strBindName, $value);
+            }
+            $stt->execute();
+
+            $result = TRUE;
+        }
+        catch (PDOException $e) {
+            echo "err:".$e->getMessage()."<br>";
+
+            $result = FALSE;
+        }
+
+        //DB解放
+        $db = null;
+    }
+    return $result;
+}
+
 ?>

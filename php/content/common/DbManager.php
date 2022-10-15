@@ -204,4 +204,55 @@ function updateTbl($tblName, $elementkeyValue, $paramKeyValue) {
     return $result;
 }
 
+
+#-----------------------------------------------------------
+# TBLから削除 (UPDATE)
+#-----------------------------------------------------------
+function deleteTbl($tblName, $paramKeyValue) {
+
+    $result = FALSE;
+
+    $strParam = "";
+
+    //DBアクセス
+    $db = getDb();
+    if ($db != null) {
+
+        //引数の連想配列は、テーブルの 要素名:値 になっている
+        foreach ($paramKeyValue as $key => $value) {
+            $strParam .= ($key."=:".$key.",");
+        }
+        $strParam = rtrim($strParam, ",");
+    
+        //echo $strParam;
+
+        //SQLのUPDATEを行う
+        try {
+            $format = 'DELETE FROM %s WHERE %s';
+            $strSql = sprintf($format, $tblName, $strParam);
+            $stt = $db->prepare($strSql);
+ 
+            $format = ':%s';
+            //WHEREのバインド設定
+            foreach ($paramKeyValue as $key => $value) {
+                $strBindName = sprintf($format, $key);
+                $stt->bindValue($strBindName, $value);
+            }
+            $stt->execute();
+
+            $result = TRUE;
+        }
+        catch (PDOException $e) {
+            echo "err:".$e->getMessage()."<br>";
+
+            $result = FALSE;
+        }
+
+        //DB解放
+        $db = null;
+    }
+    return $result;
+}
+
+
 ?>

@@ -19,7 +19,7 @@
     
     //入力エラー
     if (mb_strlen($reason)) {
-        header('Location:edit_ng.php?reason='.$reason);
+        header('Location:input_ng.php?reason='.$reason);
         exit();
     }
 ?>

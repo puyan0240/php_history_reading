@@ -43,7 +43,7 @@
 <body>
     <form action="branch.php" method="post">
         <input type="submit" name="bt_add" value="新規登録">
-        <input type="submit" name="bt_data" value="データ">
+        <input type="submit" name="bt_data" value="データ管理">
     </form>
 
     <table>

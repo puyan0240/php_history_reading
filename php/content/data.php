@@ -10,14 +10,19 @@
     <title>データ</title>
 </head>
 <body>
-    <form action="data_upload.php" method="POST" enctype="multipart/form-data">
-        <p>保存データのアップロード</p>
-        <input type="file" name="upload_file" value="">
-        <input type="submit" name="bt_upload_file" value="送信">
-    </form>
+    <p><a href="index.php">戻る</a></p>
     <div>
-        <a href="index.php">戻る</a>
+        <p>データのアップロードする (Import)</p>
+        <form action="data_upload.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="upload_file" value="">
+            <input type="submit" name="bt_upload_file" value="送信">
+        </form>
     </div>
-
+    <div>
+        <p>データを保存する (Export)</p>
+    </div>
+    <div>
+        <p>全データを削除する</p>
+    </div>
 </body>
 </html>

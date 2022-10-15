@@ -28,12 +28,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>詳細表示</title>
+    <title>削除確認</title>
 </head>
 <body>
     <p><a href="index.php">戻る</a></p>
 
-    <form action="add_done.php" method="POST">
+    <form action="del_done.php" method="POST">
         <div>
             <table>
                 <tr>
@@ -61,6 +61,9 @@
                     <td><?php echo $comment; ?></td>
                 </tr>
             </table>
+
+            <input type="hidden" name="idx" value="<?php echo $idx; ?>">
+            <input type="submit" value="削除">
         </div>
     </form>
 </body>

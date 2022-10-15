@@ -15,7 +15,7 @@ elseif (isset($_GET['edit_type'])) {
     else if ($edit_type == "edit")
         header('Location:edit.php?idx='.$_GET['idx']);
     else if ($edit_type == "clr")
-        header('Location:clr.php?idx='.$_GET['idx']);
+        header('Location:del_confirm.php?idx='.$_GET['idx']);
     exit();
 }
 

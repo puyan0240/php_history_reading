@@ -36,6 +36,7 @@
     <title>編集</title>
 </head>
 <body>
+    <p><a href="index.php">戻る</a></p>
     <form action="edit_confirm.php" method="POST">
         <div>
             <p>編集</p>
@@ -79,8 +80,5 @@
             <input type="submit" value="更新確認へ">
         </div>
     </form>
-    <div>
-        <a href="index.php">戻る</a>
-    </div>
 </body>
 </html>

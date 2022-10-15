@@ -9,10 +9,18 @@
     $recommend = e($_POST['recommend']);
     $comment   = e($_POST['comment']);
 
-    if ((mb_strlen($title) == 0)  ||
-        (mb_strlen($author) == 0) ||
-        (mb_strlen($publisher) == 0)) {
-        //exit();
+    $reason = "";
+    if (mb_strlen($title) == 0)
+        $reason = "タイトル を入力してください。";
+    elseif (mb_strlen($author) == 0)
+        $reason = "著者 を入力してください。";
+    elseif (mb_strlen($publisher) == 0)
+        $reason = "出版社 を入力してください。";
+    
+    //入力エラー
+    if (mb_strlen($reason)) {
+        header('Location:edit_ng.php?reason='.$reason);
+        exit();
     }
 ?>
 

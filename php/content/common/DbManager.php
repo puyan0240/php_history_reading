@@ -36,7 +36,7 @@ function getDb() : PDO {
 #-----------------------------------------------------------
 # TBLから取得 (SELECT)
 #-----------------------------------------------------------
-function getFromTbl($tblName, $whereKeyValue) {
+function getFromTbl($tblName, $whereKeyValue, $order) {
 
     $result = FALSE;
     $outValue = [];
@@ -47,14 +47,12 @@ function getFromTbl($tblName, $whereKeyValue) {
 
         //TBLから取得
         try {
-            $format = 'SELECT * FROM %s WHERE %s';
+            $format = 'SELECT * FROM %s WHERE %s %s';
 
-            if ($whereKeyValue == NULL) {
-                $strSql = sprintf($format, $tblName, "1");
-            }
-            else {
-                $strSql = sprintf($format, $tblName, $whereKeyValue);
-            }
+            if ($whereKeyValue == NULL)
+                $strSql = sprintf($format, $tblName, "1", $order);
+            else
+                $strSql = sprintf($format, $tblName, $whereKeyValue, $order);
             
             //echo $strSql;
             

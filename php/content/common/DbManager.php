@@ -36,7 +36,7 @@ function getDb() : PDO {
 #-----------------------------------------------------------
 # TBLから取得 (SELECT)
 #-----------------------------------------------------------
-function getFromTbl($tblName, $param) {
+function getFromTbl($tblName, $whereKeyValue) {
 
     $result = FALSE;
     $outValue = [];
@@ -49,11 +49,11 @@ function getFromTbl($tblName, $param) {
         try {
             $format = 'SELECT * FROM %s WHERE %s';
 
-            if ($param == NULL) {
+            if ($whereKeyValue == NULL) {
                 $strSql = sprintf($format, $tblName, "1");
             }
             else {
-                $strSql = sprintf($format, $tblName, $param);
+                $strSql = sprintf($format, $tblName, $whereKeyValue);
             }
             
             //echo $strSql;
@@ -208,7 +208,7 @@ function updateTbl($tblName, $elementkeyValue, $paramKeyValue) {
 #-----------------------------------------------------------
 # TBLから削除 (UPDATE)
 #-----------------------------------------------------------
-function deleteTbl($tblName, $paramKeyValue) {
+function deleteTbl($tblName, $whereKeyValue) {
 
     $result = FALSE;
 
@@ -218,9 +218,9 @@ function deleteTbl($tblName, $paramKeyValue) {
     $db = getDb();
     if ($db != null) {
 
-        if ($paramKeyValue != NULL) { //削除条件あり
+        if ($whereKeyValue != NULL) { //削除条件あり
             //引数の連想配列は、テーブルの 要素名:値 になっている
-            foreach ($paramKeyValue as $key => $value) {
+            foreach ($whereKeyValue as $key => $value) {
                 $strParam .= ($key."=:".$key.",");
             }
             $strParam = rtrim($strParam, ",");
@@ -236,9 +236,9 @@ function deleteTbl($tblName, $paramKeyValue) {
             $stt = $db->prepare($strSql);
  
             //削除条件ありの場合はWHEREのバインド設定
-            if ($paramKeyValue != NULL) {
+            if ($whereKeyValue != NULL) {
                 $format = ':%s';
-                foreach ($paramKeyValue as $key => $value) {
+                foreach ($whereKeyValue as $key => $value) {
                     $strBindName = sprintf($format, $key);
                     $stt->bindValue($strBindName, $value);
                 }

@@ -21,10 +21,16 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
     $objSheet->setCellValue('A3', 'True');
 
 
+    //ブラウザへの指定
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="test.xlsx"');
+    header('Cache-Control: max-age=0');
+
     //XLSX形式オブジェクト生成
     $objWriter = new Xlsx($objSpreadsheet);
+
     //ファイル書き込み
-    $objWriter->save('test.xlsx');
+    $objWriter->save('php://output');
 
     exit();
 ?>

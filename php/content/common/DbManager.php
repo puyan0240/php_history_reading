@@ -218,13 +218,16 @@ function deleteTbl($tblName, $paramKeyValue) {
     $db = getDb();
     if ($db != null) {
 
-        //引数の連想配列は、テーブルの 要素名:値 になっている
-        foreach ($paramKeyValue as $key => $value) {
-            $strParam .= ($key."=:".$key.",");
+        if ($paramKeyValue != NULL) { //削除条件あり
+            //引数の連想配列は、テーブルの 要素名:値 になっている
+            foreach ($paramKeyValue as $key => $value) {
+                $strParam .= ($key."=:".$key.",");
+            }
+            $strParam = rtrim($strParam, ",");
         }
-        $strParam = rtrim($strParam, ",");
-    
-        //echo $strParam;
+        else { //全削除
+            $strParam = '1';
+        }
 
         //SQLのUPDATEを行う
         try {
@@ -232,11 +235,13 @@ function deleteTbl($tblName, $paramKeyValue) {
             $strSql = sprintf($format, $tblName, $strParam);
             $stt = $db->prepare($strSql);
  
-            $format = ':%s';
-            //WHEREのバインド設定
-            foreach ($paramKeyValue as $key => $value) {
-                $strBindName = sprintf($format, $key);
-                $stt->bindValue($strBindName, $value);
+            //削除条件ありの場合はWHEREのバインド設定
+            if ($paramKeyValue != NULL) {
+                $format = ':%s';
+                foreach ($paramKeyValue as $key => $value) {
+                    $strBindName = sprintf($format, $key);
+                    $stt->bindValue($strBindName, $value);
+                }
             }
             $stt->execute();
 

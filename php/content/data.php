@@ -20,12 +20,15 @@
     </div>
     <div>
         <p>データを保存する (Export)</p>
-        <form action="data_export.php" method="POST" enctype="multipart/form-data">
+        <form action="data_export.php" method="POST">
             <input type="submit" value="Export">
         </form>
     </div>
     <div>
         <p>全データを削除する</p>
+        <form action="data_delete_confirm.php" method="POST">
+            <input type="submit" value="全削除">
+        </form>
     </div>
 </body>
 </html>

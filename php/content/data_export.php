@@ -1,10 +1,31 @@
 <?php
+    require_once './common/DbManager.php';
     include('./vendor/autoload.php');
   
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
-    use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxWriter;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+    use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+
+    $tblName = "history_book_tbl";
+
+    //DB TABLEから読み出し(全件取得)
+    $ret = getFromTbl($tblName, NULL);
+    if ($ret == FALSE) {
+        //失敗
+        exit();
+    }
+
+    //DB 結果出力
+    foreach ($ret as $line) {
+        foreach ($line as $key => $value) {
+            //echo $key."=".$value."<br>";
+        }
+    }
+
+
+
+
+/*
     //Spreadsheetオブジェクト作成
     $objSpreadsheet = new Spreadsheet();
 
@@ -31,6 +52,6 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
     //ファイル書き込み
     $objWriter->save('php://output');
-
+*/
     exit();
 ?>

@@ -12,7 +12,7 @@
 
     //DB TABLEから読み出し(全件取得)
     $tblName = "history_book_tbl";
-    $ret = getFromTbl($tblName, NULL);
+    $ret = readTbl($tblName, NULL, NULL);
     if ($ret == FALSE) {
         //失敗
         exit();

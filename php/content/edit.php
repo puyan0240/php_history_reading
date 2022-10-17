@@ -9,7 +9,7 @@
 
     //DB TABLEから読み出し
     $param = 'idx ='.$idx;
-    $ret = getFromTbl($tblName, $param, NULL);
+    $ret = readTbl($tblName, $param, NULL);
     if ($ret != FALSE) {
         foreach ($ret as $value) {
             $idx       = $value['idx'];

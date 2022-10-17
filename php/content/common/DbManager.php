@@ -36,7 +36,7 @@ function getDb() : PDO {
 #-----------------------------------------------------------
 # TBLから取得 (SELECT)
 #-----------------------------------------------------------
-function getFromTbl($tblName, $whereKeyValue, $order) {
+function readTbl($tblName, $whereKeyValue, $order) {
 
     $result = FALSE;
     $outValue = [];
@@ -93,7 +93,7 @@ function getFromTbl($tblName, $whereKeyValue, $order) {
 #-----------------------------------------------------------
 # テーブルに新規追加 (INSERT INTO)
 #-----------------------------------------------------------
-function insertDb($tblName, $keyValue) {
+function writeTbl($tblName, $keyValue) {
 
     $result = FALSE;
 

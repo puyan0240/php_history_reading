@@ -19,7 +19,7 @@
     }
     
     //DB TABLEへ書き込み
-    if (insertDb($tblName, $keyValue) == TRUE) {
+    if (writeTbl($tblName, $keyValue) == TRUE) {
         $result = "登録成功しました。";
     } else {
         $result = "登録失敗しました。";

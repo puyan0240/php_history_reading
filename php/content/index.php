@@ -18,7 +18,7 @@
     $strTbl = "";
 
     //DB TABLEから読み出し
-    $ret = getFromTbl($tblName, NULL, 'ORDER BY date');
+    $ret = readTbl($tblName, NULL, 'ORDER BY date');
     if ($ret != FALSE) {
 
         //HTML作成

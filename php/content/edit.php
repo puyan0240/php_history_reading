@@ -44,19 +44,19 @@
             <table>
                 <tr>
                     <td>日付</td>
-                    <td><input type="text" name="date" value="<?php echo $date;?>"></td>
+                    <td><input type="text" name="date" required value="<?php echo $date;?>"></td>
                 </tr>
                 <tr>
                     <td>タイトル:</td>
-                    <td><input type="text" name="title" value="<?php echo $title;?>"></td>
+                    <td><input type="text" name="title" required value="<?php echo $title;?>"></td>
                 </tr>
                 <tr>
                     <td>著者:</td>
-                    <td><input type="text" name="author" value="<?php echo $author;?>"></td>
+                    <td><input type="text" name="author" required value="<?php echo $author;?>"></td>
                 </tr>
                 <tr>
                     <td>出版社:</td>
-                    <td><input type="text" name="publisher" value="<?php echo $publisher;?>"></td>
+                    <td><input type="text" name="publisher" required value="<?php echo $publisher;?>"></td>
                 </tr>
                 <tr>
                     <td>評価:</td>

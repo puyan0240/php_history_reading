@@ -16,15 +16,15 @@
             <table>
                 <tr>
                     <td>タイトル:</td>
-                    <td><input type="text" name="title"></td>
+                    <td><input type="text" name="title" required></td>
                 </tr>
                 <tr>
                     <td>著者:</td>
-                    <td><input type="text" name="author"></td>
+                    <td><input type="text" name="author" required></td>
                 </tr>
                 <tr>
                     <td>出版社:</td>
-                    <td><input type="text" name="publisher"></td>
+                    <td><input type="text" name="publisher" required></td>
                 </tr>
                 <tr>
                     <td>評価:</td>

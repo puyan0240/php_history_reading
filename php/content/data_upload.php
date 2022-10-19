@@ -33,29 +33,28 @@
                 echo "title:".$title."<br>";
                 echo "------".$i."<br>";
     
-                $dataName = ['idx','date','title','author','publisher','recommend','comment'];
-                $sheetData = [];
-
+                $dataName = ['idx', 'date','title','author','publisher','recommend','comment'];
+                
                 foreach ($sheet->getRowIterator() as $row_num => $row) {
+                    $sheetData = [];
+
                     foreach($sheet->getColumnIterator() as $column) {
                         $cellData = $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue();
                         if (!empty($cellData))
                             $sheetData[] = $cellData;
                         #echo $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue().PHP_EOL ;
                     }
+                    if (count($sheetData) == 0)
+                        continue;   //空行はスキップ
+                    if (strcmp($sheetData[0], 'No.') == 0)
+                        continue;   //先頭のタイトル行はスキップ
+
                     foreach ($sheetData as $j => $cellData) {
-                        if (($j == 0) && ($cellData == "No.")) {
-                            break;  //1行目タイトルはスキップ
-                        }
-                        #echo $j.":".$data.",";
-                        if ($j > 0) {
+                        if ($j > 0)
                             echo $dataName[$j].":".$cellData.",";
-                        }
                         $result = 'アップロードが成功しました';
                     }
                     #var_dump($sheetData);
-                    $sheetData = [];
-                    echo "<br>";
                 }   
             }
         }

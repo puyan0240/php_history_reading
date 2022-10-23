@@ -1,8 +1,11 @@
 <?php
-
-    include('./vendor/autoload.php');
-  
+    include('./vendor/autoload.php'); 
     use PhpOffice\PhpSpreadsheet\Reader\Xlsx as XlsxReader;
+    use PhpOffice\PhpSpreadsheet\Shared\Date as XlsxDate;   //エクセル⇒日付DATEに変換
+
+    require_once './common/DbManager.php';
+
+    $tblName = "history_book_tbl";
 
     $file = $_FILES['upload_file'];
 
@@ -33,10 +36,11 @@
                 echo "title:".$title."<br>";
                 echo "------".$i."<br>";
     
-                $dataName = ['idx', 'date','title','author','publisher','recommend','comment'];
+                $keyName = ['idx', 'date','title','author','publisher','recommend','comment'];
                 
                 foreach ($sheet->getRowIterator() as $row_num => $row) {
                     $sheetData = [];
+                    $keyValue = [];
 
                     foreach($sheet->getColumnIterator() as $column) {
                         $cellData = $sheet->getCell($column->getColumnIndex() . $row->getRowIndex())->getValue();
@@ -50,11 +54,17 @@
                         continue;   //先頭のタイトル行はスキップ
 
                     foreach ($sheetData as $j => $cellData) {
-                        if ($j > 0)
-                            echo $dataName[$j].":".$cellData.",";
-                        $result = 'アップロードが成功しました';
+                        if ($j > 0) {
+                            //エクセル=>日付DATEに変換
+                            if ($j == 1) {
+                                $cellData = XlsxDate::excelToDateTimeObject($cellData)->format('Y-m-d');
+                            }
+                            $keyValue[$keyName[$j]] = $cellData;
+                        }
                     }
                     #var_dump($sheetData);
+                    writeTbl($tblName, $keyValue);
+                    $result = 'アップロードが成功しました';
                 }   
             }
         }

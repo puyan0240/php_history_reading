@@ -47,6 +47,11 @@
             if ($key == 'idx') {
                 $objSheet->setCellValue($cell, $count);
             }
+            elseif ($key == 'date') {
+                //Execlの日付型に変化する（そうしないと文字列で書き込まれる）
+                $value = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($value);
+                $objSheet->setCellValue($cell, $value);
+            }
             else {
                 $objSheet->setCellValue($cell, $value);
             }          

@@ -42,7 +42,7 @@
         $col = 'A';
         $row ++;
         foreach ($line as $key => $value) {
-            $cell = $col.$row;
+            $cell = $col.$row;  //セル指定
 
             if ($key == 'idx') {
                 $objSheet->setCellValue($cell, $count);

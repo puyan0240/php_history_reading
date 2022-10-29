@@ -3,17 +3,22 @@
 
     $tblName = "history_book_tbl";
 
-    $latestYear = 2019;
-
     //「年」選択肢
     {
+        $latestYear = 2019; //一番古い年
+
+        if (isset($_POST['sel_year']))
+            $selectedYear = $_POST['sel_year'];
+        else
+            $selectedYear = date('Y');
+
         $format = "<option value=\"%s\" %s>%s</option>";
         $strSelYear = "";
         $strSelected = "";
     
         $year = date('Y');
         while ($year >= $latestYear) {
-            if ($year == date('Y'))
+            if ($year == $selectedYear)
                 $strSelected = "selected";  //初期値の選択は現在の年
             else
                 $strSelected = "";
@@ -69,23 +74,24 @@
         <input type="submit" name="bt_data" value="データ管理">
     </form>
 
-    <form accept="" method="POST">
+    <form action="" method="post">
         <select name="sel_year">
             <?php echo $strSelYear; ?>
         </select>
-        <table>
-            <tr>
-                <th></th>
-                <th>No.</th>
-                <th>日付</th>
-                <th>タイトル</th>
-                <th>著者</th>
-                <th>出版社</th>
-                <th>評価</th>
-            </tr>
-            <?php echo $strTbl; ?>
-
-        </table>
+        <input type="submit" value="選択">
     </form>
-</body>
+
+    <table>
+        <tr>
+            <th></th>
+            <th>No.</th>
+            <th>日付</th>
+            <th>タイトル</th>
+            <th>著者</th>
+            <th>出版社</th>
+            <th>評価</th>
+        </tr>
+        <?php echo $strTbl; ?>
+
+    </table>
 </html>

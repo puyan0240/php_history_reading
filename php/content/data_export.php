@@ -15,6 +15,7 @@
     $ret = readTbl($tblName, NULL, NULL);
     if ($ret == FALSE) {
         //失敗
+        header('Location:'.$_SERVER['HTTP_REFERER']);
         exit();
     }
 

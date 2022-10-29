@@ -54,17 +54,20 @@
                         continue;   //先頭のタイトル行はスキップ
 
                     foreach ($sheetData as $j => $cellData) {
-                        if ($j > 0) {
-                            //エクセル=>日付DATEに変換
-                            if ($j == 1) {
+                        if ($j > 0) { //先頭No.はスキップする
+                            if ($j == 1) { //日付欄はエクセル=>日付DATEに変換
                                 $cellData = XlsxDate::excelToDateTimeObject($cellData)->format('Y-m-d');
                             }
                             $keyValue[$keyName[$j]] = $cellData;
                         }
                     }
-                    #var_dump($sheetData);
-                    writeTbl($tblName, $keyValue);
-                    $result = 'アップロードが成功しました';
+                    if (count($keyValue) != 0) { //先頭No.以外　空の場合はDB書き込みしない
+                        if (writeTbl($tblName, $keyValue) == FALSE) {
+                            var_dump($keyValue);
+                            exit();    
+                        }
+                        $result = 'アップロードが成功しました';    
+                    }
                 }   
             }
         }

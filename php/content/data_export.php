@@ -12,7 +12,7 @@
 
     //DB TABLEから読み出し(全件取得)
     $tblName = "history_book_tbl";
-    $ret = readTbl($tblName, NULL, NULL);
+    $ret = readTbl($tblName, NULL, 'ORDER BY date');
     if ($ret == FALSE) {
         //失敗
         header('Location:'.$_SERVER['HTTP_REFERER']);

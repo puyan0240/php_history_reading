@@ -45,7 +45,8 @@
         $strTbl = "";
 
         //DB TABLEから読み出し
-        $ret = readTbl($tblName, NULL, 'ORDER BY date');
+        $where = "date like '%".$selectedYear."%'";
+        $ret = readTbl($tblName, $where, 'ORDER BY date');
         if ($ret != FALSE) {
             //HTML作成
             $count = 1;

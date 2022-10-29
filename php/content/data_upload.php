@@ -15,11 +15,11 @@
 
     if (!empty($file['tmp_name'])) { //アップロードファイルあり
         $filepath = $file["tmp_name"];
-        echo $filepath;
+        //echo $filepath;
     
         $storeDir = '/tmp/'; #apache上です
         $filepath = $storeDir.$file['name'];
-        echo $filepath;
+        //echo $filepath;
         move_uploaded_file($file['tmp_name'], $filepath);
 
         try {
@@ -28,13 +28,13 @@
             #$sheet = $spreadsheet->getSheetByName('test1'); // 読み込むシートを指定
     
             $sheetCount = $spreadsheet->getSheetCount();    //シート数取得
-            echo "シート数".$sheetCount."<br>";
+            //echo "シート数".$sheetCount."<br>";
 
             for ($i =0; $i < $sheetCount; $i ++) {
                 $sheet = $spreadsheet->getSheet($i);
                 $title = $sheet->getTitle();    #Sheet名取得
-                echo "title:".$title."<br>";
-                echo "------".$i."<br>";
+                //echo "title:".$title."<br>";
+                //echo "------".$i."<br>";
     
                 $keyName = ['idx', 'date','title','author','publisher','recommend','comment'];
                 

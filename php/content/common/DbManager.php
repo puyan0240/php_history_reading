@@ -107,7 +107,7 @@ function getNumberOfEntryTbl($tblName, $where, $count) {
             else
                 $strSql = sprintf($format, $count, $tblName, $where);
             
-            echo $strSql."<br>";
+            //echo $strSql."<br>";
             
             $stmt = $db->prepare($strSql);
             $stmt->execute();

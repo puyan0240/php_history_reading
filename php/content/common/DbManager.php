@@ -89,6 +89,42 @@ function readTbl($tblName, $whereKeyValue, $order) {
 }
 
 
+#-----------------------------------------------------------
+# TBLから条件にあった件数を取得 (SELECT)
+#-----------------------------------------------------------
+function getNumberOfEntryTbl($tblName, $where, $count) {
+ 
+    //DB接続
+    $db = getDb();
+    if ($db != null) {
+
+        //TBLから取得
+        try {
+            $format = 'SELECT COUNT(%s) FROM %s WHERE %s';
+
+            if ($where == NULL)
+                $strSql = sprintf($format, $count, $tblName, "1");
+            else
+                $strSql = sprintf($format, $count, $tblName, $where);
+            
+            echo $strSql."<br>";
+            
+            $stmt = $db->prepare($strSql);
+            $stmt->execute();
+            $result = $stmt->fetchColumn();
+        }
+        catch (PDOException $e) {
+
+            $result = FALSE;
+        }
+        //DB切断
+        $db = null;
+
+        return $result;
+    }
+}
+
+
 
 #-----------------------------------------------------------
 # テーブルに新規追加 (INSERT INTO)

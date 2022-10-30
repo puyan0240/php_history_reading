@@ -3,6 +3,10 @@ if (isset($_POST['bt_add'])) {
     header('Location:add.php');
     exit();
 }
+elseif (isset($_POST['bt_search'])) {
+    header('Location:search.php');
+    exit();
+}
 elseif (isset($_POST['bt_data'])) {
     header('Location:data.php');
     exit();

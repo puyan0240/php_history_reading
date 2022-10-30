@@ -49,6 +49,9 @@
                 $objSheet->setCellValue($cell, $count);
             }
             elseif ($key == 'date') {
+                //Excelのセルの表示形式を日付に変更する
+                $objSheet->getStyle($cell)->getNumberFormat()->setFormatCode('yyyy/mm/dd');
+
                 //Execlの日付型に変化する（そうしないと文字列で書き込まれる）
                 $value = \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($value);
                 $objSheet->setCellValue($cell, $value);

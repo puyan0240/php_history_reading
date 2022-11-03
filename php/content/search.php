@@ -25,11 +25,11 @@
 
             $where = "";
             if (mb_strlen($author))
-                $where .= "author='".$author."'";
+                $where = "author like '%".$author."%'";
             if (mb_strlen($publisher)) {
                 if (mb_strlen($where))
                     $where .= " && ";
-                $where .= "publisher='".$publisher."'";
+                $where = "publisher like '%".$publisher."%'";
             }
 
             //DB問い合わせ (※検索条件がある場合のみ)

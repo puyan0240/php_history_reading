@@ -31,7 +31,7 @@
     <title>詳細表示</title>
 </head>
 <body>
-    <p><a href="index.php">戻る</a></p>
+    <p><a href="javascript:history.back()">戻る</a></p>
 
     <form action="add_done.php" method="POST">
         <div>

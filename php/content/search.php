@@ -22,14 +22,20 @@
         if (isset($_POST['bt_search'])) {
             $author    = e($_POST['author']);
             $publisher = e($_POST['publisher']);
+            $recommend = e($_POST['recommend']);
 
             $where = "";
             if (mb_strlen($author))
-                $where = "author like '%".$author."%'";
+                $where .= "author like '%".$author."%'";
             if (mb_strlen($publisher)) {
                 if (mb_strlen($where))
                     $where .= " && ";
-                $where = "publisher like '%".$publisher."%'";
+                $where .= "publisher like '%".$publisher."%'";
+            }
+            if ($recommend != "-") {
+                if (mb_strlen($where))
+                    $where .= " && ";
+                $where .= "recommend =".$recommend;
             }
 
             //DB問い合わせ (※検索条件がある場合のみ)
@@ -88,6 +94,19 @@
             </tr>
             <tr>
                 <td>出版社</td><td><input type="text" name="publisher"></td>
+            </tr>
+            <tr>
+                <td>評価</td>
+                <td>
+                    <select name="recommend">
+                        <option value="-" selected>-</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                </td>
             </tr>
         </table>
         <input type="reset" value="取消">

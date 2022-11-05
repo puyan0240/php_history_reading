@@ -41,7 +41,7 @@
 
             //DB問い合わせ (※検索条件がある場合のみ)
             if (mb_strlen($where)) {
-                $ret = readTbl($tblName, $where, 'ORDER BY date');
+                $ret = readTbl($tblName, $where, 'ORDER BY date DESC'); //日付を降順で
                 if ($ret != FALSE) {
                     $count = 1; //Index値
                     foreach ($ret as $value) {

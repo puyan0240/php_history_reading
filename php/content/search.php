@@ -4,6 +4,7 @@
 
     $tblName = "history_book_tbl";
 
+    $where = $searchWhere = "";
     
     //検索結果
     {
@@ -24,7 +25,6 @@
             $publisher = e($_POST['publisher']);
             $recommend = e($_POST['recommend']);
 
-            $where = "";
             if (mb_strlen($author))
                 $where .= "author like '%".$author."%'";
             if (mb_strlen($publisher)) {
@@ -37,6 +37,7 @@
                     $where .= " && ";
                 $where .= "recommend =".$recommend;
             }
+            $searchWhere = $where;
 
             //DB問い合わせ (※検索条件がある場合のみ)
             if (mb_strlen($where)) {
@@ -56,7 +57,7 @@
     }
 
 
-    //年度毎の件数をTable表示
+    //年度毎の件数をTable表示 (※検索済みならその件数)
     {
         $latestYear = 2019; //一番古い年
 
@@ -68,7 +69,11 @@
 
         $year = date('Y');
         while ($year >= $latestYear) {
-            $where = "date like '%".$year."%'";
+            $where = "";
+            if (mb_strlen($searchWhere)) { //検索している
+                $where .= $searchWhere." && ";
+            }
+            $where .= "date like '%".$year."%'";
             $count = getNumberOfEntryTbl($tblName, $where, "*");
 
             $strNumberOfEntry .= sprintf($format, $year, $count);
